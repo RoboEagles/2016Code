@@ -343,7 +343,7 @@ Children:
           validators: [AnalogInput]
           value: '1'
         Full Range: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Full Range,
-          validators: null, value: 1.0}
+          validators: null, value: 230.0}
         Offset: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: Offset,
           validators: null, value: 0.0}
       Base: Analog Potentiometer
@@ -461,7 +461,7 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whenPressed
+          value: whileHeld
       Base: Joystick Button
       Name: loadButton
     Properties:
@@ -500,7 +500,7 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
       Base: Joystick Button
       Name: armLiftSolenoid
     - Children: []
@@ -889,7 +889,7 @@ Children:
   Name: Commands
 Properties:
   Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\jaden\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ..\}
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: .\}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty
