@@ -73,11 +73,11 @@ public class OI {
         extendLiftSolenoid = new JoystickButton(customControls, 2);
         extendLiftSolenoid.whenPressed(new Cmd_ExtendLiftSolenoid());
         armLiftSolenoid = new JoystickButton(customControls, 1);
-        armLiftSolenoid.whileHeld(new Cmd_ArmLiftSolenoid());
+        armLiftSolenoid.whenPressed(new Cmd_ArmLiftSolenoid());
         driveStick = new Joystick(0);
         
         loadButton = new JoystickButton(driveStick, 2);
-        loadButton.whenPressed(new Cmd_Load());
+        loadButton.whileHeld(new Cmd_Load());
         shootBtn = new JoystickButton(driveStick, 1);
         shootBtn.whenPressed(new CmdGrp_Shoot());
 

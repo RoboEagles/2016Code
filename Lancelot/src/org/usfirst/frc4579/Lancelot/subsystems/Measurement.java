@@ -49,11 +49,13 @@ public class Measurement extends Subsystem {
     
     public Measurement() {
     	
-    	
+    	initialize();
     	
     }
     
     public void initialize() {
+    	
+    	
     	
     }
     
