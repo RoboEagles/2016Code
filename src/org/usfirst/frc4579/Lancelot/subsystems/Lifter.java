@@ -56,7 +56,7 @@ public class Lifter extends PIDSubsystem {
     
     public void extend() {
     	liftSolenoid.set(DoubleSolenoid.Value.kForward);
-    } 
+    }
     
     public void retract() {
     	liftSolenoid.set(DoubleSolenoid.Value.kReverse);
