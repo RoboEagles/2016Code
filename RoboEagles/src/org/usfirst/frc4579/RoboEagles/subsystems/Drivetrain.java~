@@ -48,8 +48,8 @@ public class Drivetrain extends Subsystem {
     	x = xLPF.filter(x);
     	y = yLPF.filter(y);
     	
-    	x *= x;
-    	y *= y;
+    	x = x != 0 ? (x*x)*(x/Math.abs(x)) : 0;
+    	y = y != 0 ? (y*y)*(y/Math.abs(y)) : 0;
     	
     	x = invertedDrive ? -x : x;
     	y = invertedDrive ? -y : y;
