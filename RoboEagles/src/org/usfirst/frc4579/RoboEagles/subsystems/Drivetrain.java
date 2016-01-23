@@ -58,6 +58,11 @@ public class Drivetrain extends Subsystem {
     	robotDrive.arcadeDrive(x, y);
     	
     }
+    
+    public void stop() {
+    	leftMotor.set(0);
+    	rightMotor.set(0);
+    }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
