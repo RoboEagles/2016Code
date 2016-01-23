@@ -82,7 +82,7 @@ public class RobotMap {
         measurementrobotUltrasonic = new Ultrasonic(1, 2);
         LiveWindow.addSensor("Measurement", "robotUltrasonic", measurementrobotUltrasonic);
         
-        lifterlifterPotentiometer = new AnalogPotentiometer(1, 1.0, 0.0);
+        lifterlifterPotentiometer = new AnalogPotentiometer(1, 300.0, 0.0);
         LiveWindow.addSensor("Lifter", "lifterPotentiometer", lifterlifterPotentiometer);
         
         lifterlifterMotor = new Talon(4);
