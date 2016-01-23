@@ -37,6 +37,9 @@ public class Cmd_LiftArmSafety extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
+    	Robot.lifter.arm();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -50,10 +53,12 @@ public class Cmd_LiftArmSafety extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.lifter.disarm();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
