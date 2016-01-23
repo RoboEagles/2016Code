@@ -54,7 +54,6 @@ public class Drivetrain extends Subsystem {
     	x = invertedDrive ? -x : x;
     	y = invertedDrive ? -y : y;
     	
-    	
     	robotDrive.arcadeDrive(x, y);
     	
     }

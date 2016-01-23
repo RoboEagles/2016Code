@@ -76,6 +76,7 @@ public class OI {
 
 
         // SmartDashboard Buttons
+        SmartDashboard.putData("Cmd_Load", new Cmd_Load());
         SmartDashboard.putData("Cmd_Default_Drive", new Cmd_Default_Drive());
         SmartDashboard.putData("Cmd_Default_Measure", new Cmd_Default_Measure());
         SmartDashboard.putData("Cmd_Default_Lift", new Cmd_Default_Lift());
