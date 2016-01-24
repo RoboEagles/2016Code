@@ -113,6 +113,7 @@ public class OI {
     
     public void periodic() {
     	SmartDashboard.putNumber("Lifter Angle", Robot.lifter.getPot().get());
+    	SmartDashboard.putBoolean("Loader Limit", Robot.loader.isLoaded());
     }
     
 }
