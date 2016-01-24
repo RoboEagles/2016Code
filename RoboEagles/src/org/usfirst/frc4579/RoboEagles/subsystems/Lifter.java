@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Talon;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -118,5 +117,17 @@ public class Lifter extends PIDSubsystem {
     
     public AnalogPotentiometer getPot() {
     	return lifterPotentiometer;
+    }
+    
+    public boolean isLimited() {
+    	return getBottomLimited() || getTopLimited();
+    }
+    
+    public boolean getBottomLimited() {
+    	return bottomLimit.get();
+    }
+    
+    public boolean getTopLimited() {
+    	return topLimit.get();
     }
 }
