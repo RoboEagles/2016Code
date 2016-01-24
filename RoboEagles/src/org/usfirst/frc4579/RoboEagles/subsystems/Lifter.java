@@ -14,6 +14,7 @@ package org.usfirst.frc4579.RoboEagles.subsystems;
 import org.usfirst.frc4579.RoboEagles.RobotMap;
 import org.usfirst.frc4579.RoboEagles.commands.*;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
