@@ -137,7 +137,6 @@ public class CustomMotorController {
 		this.pdb = new PowerDistributionPanel();
 		currentDifference = maxCurrent-minCurrent;
 	}
-	
 	/*
 	 * This method is intended to set the speed of the motor in inches per second (unless kConversion value adjusts for other units)
 	 * 
@@ -252,6 +251,9 @@ public class CustomMotorController {
 		return kConversion;
 	}
 	
+	public double getCurrent() {
+		return this.pdb.getCurrent(pdbChannel);
+	}
 	
 	/*
 	 * This method returns the current motor setting [0,1]
