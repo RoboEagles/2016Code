@@ -35,17 +35,18 @@ public class Cmd_Shoot extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (!Robot.loader.isLoaded() && isTimedOut());
+        return (!Robot.loader.isLoaded() || isTimedOut());
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	Robot.loader.stop();
-    	Robot.shooter.shoot(0);
+    	Robot.shooter.shoot(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
