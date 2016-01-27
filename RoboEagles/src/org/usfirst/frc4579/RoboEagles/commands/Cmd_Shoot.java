@@ -25,7 +25,7 @@ public class Cmd_Shoot extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.shooter.shoot(.5);
-    	if(Robot.measurement.getLoaderCurrent() >= 25.)  {
+    	if(Robot.measurement.getShooterSpeed() >= 500.0)  {
     		Robot.loader.set(.5);
     		if(!shooting) setTimeout(2.0);
     		shooting = true;
