@@ -11,19 +11,19 @@
 
 package org.usfirst.frc4579.RoboEagles.subsystems;
 
-import org.usfirst.frc4579.RoboEagles.Robot;
 import org.usfirst.frc4579.RoboEagles.RobotMap;
 import org.usfirst.frc4579.RoboEagles.commands.*;
 
+import com.RoboEagles4579.filters.AverageFilter;
+import com.RoboEagles4579.math.Vector3d;
 import com.RoboEagles4579.motors.MotorMonitor;
-
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Ultrasonic;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 
 
 /**
@@ -44,6 +44,10 @@ public class Measurement extends Subsystem {
     private final MotorMonitor shooterMotorMonitor = new MotorMonitor(13, RobotMap.miniCIM);
     private double shooterMotorSpeed;
     
+    private final Accelerometer robotAcceleromter = new BuiltInAccelerometer();
+        
+    private Vector3d relativeFieldPosition = new Vector3d(0, 0, 0);
+    private AverageFilter ultrasonicAverage = new AverageFilter(10);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     
@@ -59,15 +63,25 @@ public class Measurement extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
     
+    public void initialize() {
+    	
+    }
+    
     public void measure() {
     	
     	shooterMotorSpeed = shooterMotorMonitor.getSpeed();
+    	ultrasonicAverage.filter(robotUltrasonic.getRangeInches());
+    	
     	
     }
     
     public double getShooterSpeed() { //Returns RPM of Motor
     	return shooterMotorSpeed;
     }
+
+	public double getUltrasonicDistance() {
+		return ultrasonicAverage.getAverage();
+	}
     
 }
 

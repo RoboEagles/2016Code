@@ -48,7 +48,7 @@ public class Loader extends Subsystem {
     }
     
     public boolean isLoaded()  {
-    	return !loadLimit.get();
+    	return loadLimit.get();
     }
     
     public void stop()  {
