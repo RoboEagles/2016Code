@@ -20,10 +20,10 @@ public class MotorMonitor {
 	
 	public double getSpeed() {
 		
-		double speed = -1*(motor.getMaxSpeed()*(this.getCurrent()-motor.getMinCurrent()))
-						/(motor.getStallCurrent()-motor.getMinCurrent()) + motor.getMaxSpeed();
+		//double speed = -1*(motor.getMaxSpeed()*(this.getCurrent()-motor.getMinCurrent()))
+			//			/(motor.getStallCurrent()-motor.getMinCurrent()) + motor.getMaxSpeed();
 		
-		return speed;
+		return 0;
 	}
 	
 
