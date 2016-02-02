@@ -71,7 +71,7 @@ public class Cmd_MoveDistance extends PIDCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	m_startDistance = Robot.measurement.getFieldPosition().X;
+    	//m_startDistance = Robot.measurement.getFieldPosition().X;
     	m_targetDistance = m_startDistance + m_distance;
     	
     	
