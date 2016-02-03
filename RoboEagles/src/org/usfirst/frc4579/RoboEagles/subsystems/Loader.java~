@@ -41,7 +41,7 @@ public class Loader extends Subsystem {
 
     public void initDefaultCommand() {
     		
-    	}
+    }
     
     public void set(double speed)  {
     	loadMotor.set(speed);	

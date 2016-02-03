@@ -41,14 +41,14 @@ public class Loader extends Subsystem {
 
     public void initDefaultCommand() {
     		
-    	}
+    }
     
     public void set(double speed)  {
     	loadMotor.set(speed);	
     }
     
     public boolean isLoaded()  {
-    	return !loadLimit.get();
+    	return loadLimit.get();
     }
     
     public void stop()  {

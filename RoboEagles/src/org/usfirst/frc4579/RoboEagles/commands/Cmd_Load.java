@@ -13,7 +13,6 @@ package org.usfirst.frc4579.RoboEagles.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc4579.RoboEagles.Robot;
-import org.usfirst.frc4579.RoboEagles.subsystems.Loader;
 
 /**
  *

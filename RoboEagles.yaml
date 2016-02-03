@@ -495,6 +495,65 @@ Children:
 - Children:
   - Children: []
     Properties:
+      Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Limit Output, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: distance, type: double}
+      D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D, validators: null,
+        value: 0.0}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Continuous: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Continuous, validators: null, value: false}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterSet
+          name: default
+          parameters:
+          - {name: distance, type: double, value: '0'}
+      Tolerance: !!robotbuilder.data.properties.DoubleProperty {default: 0.2, name: Tolerance,
+        validators: null, value: 0.2}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+      I: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: I, validators: null,
+        value: 0.0}
+      Period: !!robotbuilder.data.properties.DoubleProperty {default: 0.02, name: Period,
+        validators: null, value: 0.02}
+      Minimum Input: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: Minimum Input,
+        validators: null, value: 0.0}
+      Limit Input: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Limit Input, validators: null, value: false}
+      Minimum Output: !!robotbuilder.data.properties.DoubleProperty {default: -1,
+        name: Minimum Output, validators: null, value: -1.0}
+      P: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: P, validators: null,
+        value: 1.0}
+      Input: !!robotbuilder.data.properties.TypeSelectionProperty
+        default: None
+        name: Input
+        type: PIDSource
+        validators: [TypeDropdownSelected]
+        value: Measurement robotUltrasonic
+      Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Maximum Output,
+        validators: null, value: 1.0}
+      Output: !!robotbuilder.data.properties.TypeSelectionProperty
+        default: None
+        name: Output
+        type: PIDOutput
+        validators: [TypeDropdownSelected]
+        value: Drivetrain leftMotor
+      Maximum Input: !!robotbuilder.data.properties.DoubleProperty {default: 5, name: Maximum Input,
+        validators: null, value: 5.0}
+    Base: PID Command
+    Name: Cmd_MoveDistance
+  - Children: []
+    Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -601,29 +660,6 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: Cmd_Feed
-  - Children: []
-    Properties: &id019
-      Parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Parameters
-        validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterDescriptor {name: distance, type: double}
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Drivetrain}
-      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: []
-        name: Parameter presets
-        validators: null
-        value:
-        - !!robotbuilder.data.properties.ParameterSet
-          name: default
-          parameters:
-          - {name: distance, type: double, value: '2'}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command
-    Name: Cmd_MoveDistance
   - Children: []
     Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
@@ -782,15 +818,15 @@ Children:
         - !!robotbuilder.data.CommandGroupEntry
           command:
             base:
-              help: A command specifies an action that the robot can perform.
-              name: Command
+              help: A command that uses a PID controller to perform its desired action.
+              name: PID Command
               properties:
               - !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
                 name: Requires, type: Subsystem, validators: null, value: None}
               - !!robotbuilder.data.properties.BooleanProperty {default: true, name: Button on SmartDashboard,
                 validators: null, value: true}
               - !!robotbuilder.data.properties.ParametersProperty
-                default: []
+                default: !!set {}
                 name: Parameters
                 validators: null
                 value: []
@@ -799,10 +835,102 @@ Children:
                 name: Parameter presets
                 validators: null
                 value: *id018
+              - !!robotbuilder.data.properties.TypeSelectionProperty
+                default: None
+                name: Input
+                type: PIDSource
+                validators: &id020 [TypeDropdownSelected]
+                value: None
+              - !!robotbuilder.data.properties.TypeSelectionProperty
+                default: None
+                name: Output
+                type: PIDOutput
+                validators: &id021 [TypeDropdownSelected]
+                value: None
+              - !!robotbuilder.data.properties.DoubleProperty {default: 1, name: P,
+                validators: null, value: 1.0}
+              - !!robotbuilder.data.properties.DoubleProperty {default: 0, name: I,
+                validators: null, value: 0.0}
+              - !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D,
+                validators: null, value: 0.0}
+              - !!robotbuilder.data.properties.DoubleProperty {default: 0.2, name: Tolerance,
+                validators: null, value: 0.2}
+              - !!robotbuilder.data.properties.DoubleProperty {default: 0.02, name: Period,
+                validators: null, value: 0.02}
+              - !!robotbuilder.data.properties.BooleanProperty {default: false, name: Continuous,
+                validators: null, value: false}
+              - !!robotbuilder.data.properties.BooleanProperty {default: false, name: Limit Input,
+                validators: null, value: false}
+              - !!robotbuilder.data.properties.DoubleProperty {default: 0, name: Minimum Input,
+                validators: null, value: 0.0}
+              - !!robotbuilder.data.properties.DoubleProperty {default: 5, name: Maximum Input,
+                validators: null, value: 5.0}
+              - !!robotbuilder.data.properties.BooleanProperty {default: false, name: Limit Output,
+                validators: null, value: false}
+              - !!robotbuilder.data.properties.DoubleProperty {default: -1, name: Minimum Output,
+                validators: null, value: -1.0}
+              - !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Maximum Output,
+                validators: null, value: 1.0}
               supports: {}
               type: Command
             name: Cmd_MoveDistance
-            properties: *id019
+            properties:
+              Limit Output: !!robotbuilder.data.properties.BooleanProperty {default: false,
+                name: Limit Output, validators: null, value: false}
+              Parameters: !!robotbuilder.data.properties.ParametersProperty
+                default: []
+                name: Parameters
+                validators: null
+                value:
+                - !!robotbuilder.data.properties.ParameterDescriptor {name: distance,
+                  type: double}
+              D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D,
+                validators: null, value: 0.0}
+              Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+                name: Requires, type: Subsystem, validators: null, value: Drivetrain}
+              Continuous: !!robotbuilder.data.properties.BooleanProperty {default: false,
+                name: Continuous, validators: null, value: false}
+              Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+                default: &id019
+                - !!robotbuilder.data.properties.ParameterSet
+                  name: distance
+                  parameters:
+                  - {name: distance, type: double, value: '0'}
+                name: Parameter presets
+                validators: null
+                value: *id019
+              Tolerance: !!robotbuilder.data.properties.DoubleProperty {default: 0.2,
+                name: Tolerance, validators: null, value: 0.2}
+              Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {
+                default: true, name: Button on SmartDashboard, validators: null, value: true}
+              I: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: I,
+                validators: null, value: 0.0}
+              Period: !!robotbuilder.data.properties.DoubleProperty {default: 0.02,
+                name: Period, validators: null, value: 0.02}
+              Minimum Input: !!robotbuilder.data.properties.DoubleProperty {default: 0,
+                name: Minimum Input, validators: null, value: 0.0}
+              Limit Input: !!robotbuilder.data.properties.BooleanProperty {default: false,
+                name: Limit Input, validators: null, value: false}
+              Minimum Output: !!robotbuilder.data.properties.DoubleProperty {default: -1,
+                name: Minimum Output, validators: null, value: -1.0}
+              P: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: P,
+                validators: null, value: 1.0}
+              Input: !!robotbuilder.data.properties.TypeSelectionProperty
+                default: None
+                name: Input
+                type: PIDSource
+                validators: *id020
+                value: Measurement robotUltrasonic
+              Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1,
+                name: Maximum Output, validators: null, value: 1.0}
+              Output: !!robotbuilder.data.properties.TypeSelectionProperty
+                default: None
+                name: Output
+                type: PIDOutput
+                validators: *id021
+                value: Drivetrain leftMotor
+              Maximum Input: !!robotbuilder.data.properties.DoubleProperty {default: 5,
+                name: Maximum Input, validators: null, value: 5.0}
           hasMatch: true
           order: Sequential
           parameters:

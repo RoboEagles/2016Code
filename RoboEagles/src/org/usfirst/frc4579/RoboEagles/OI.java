@@ -79,13 +79,13 @@ public class OI {
 
 
         // SmartDashboard Buttons
+        SmartDashboard.putData("Cmd_MoveDistance: default", new Cmd_MoveDistance(0));
         SmartDashboard.putData("Cmd_Load", new Cmd_Load());
         SmartDashboard.putData("Cmd_Default_Drive", new Cmd_Default_Drive());
         SmartDashboard.putData("Cmd_Default_Measure", new Cmd_Default_Measure());
         SmartDashboard.putData("Cmd_Default_Lift", new Cmd_Default_Lift());
         SmartDashboard.putData("Cmd_Spool", new Cmd_Spool());
         SmartDashboard.putData("Cmd_Feed", new Cmd_Feed());
-        SmartDashboard.putData("Cmd_MoveDistance: default", new Cmd_MoveDistance(2));
         SmartDashboard.putData("Cmd_LiftArmSafety", new Cmd_LiftArmSafety());
         SmartDashboard.putData("Cmd_ExtendLiftArm", new Cmd_ExtendLiftArm());
         SmartDashboard.putData("Cmd_RetractLiftArm", new Cmd_RetractLiftArm());
