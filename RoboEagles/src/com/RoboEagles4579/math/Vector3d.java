@@ -18,7 +18,11 @@ public class Vector3d extends Vector2d {
         this.Z = z;
     }
     
-    public double magnitude() {//Returns magnitude of the vector
+    public Vector3d() {
+    	this(0,0,0);
+	}
+
+	public double magnitude() {//Returns magnitude of the vector
         return Math.sqrt(X*X + Y*Y + Z*Z);
     }
     

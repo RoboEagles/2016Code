@@ -40,8 +40,18 @@ public class AverageFilter {
 		
 	}
 	
+	public void reset() {
+		for(int i = 0; i < array.length; i++) {
+			array[i] = 0;			
+		}
+	}
+	
 	public double getAverage() {
 		return average;
+	}
+	
+	public double getArraySize() {
+		return arraySize;
 	}
 	
 }
