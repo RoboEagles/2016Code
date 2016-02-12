@@ -1,14 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Property of FRC TEAM 4579 - RoboEagles
+ * v1.0 | 03/19/2015
+ * Lead Programmer, Jaden Bottemiller
  */
+
 package com.RoboEagles4579.math;
 
-/**
- *
- * @author bstevens
- */
+
 public class Vector3d extends Vector2d {
     
     public double Z;
@@ -38,6 +36,18 @@ public class Vector3d extends Vector2d {
         X = 0;
         Y = 0;
         Z = 0;
+    }
+    
+    public Vector3d multiply(double val) {
+    	super.multiply(val);
+    	Z *= val;
+    	return this;
+    }
+    
+    public Vector3d divide(double val) {
+    	super.divide(val);
+    	Z /= val;
+    	return this;
     }
     
 }

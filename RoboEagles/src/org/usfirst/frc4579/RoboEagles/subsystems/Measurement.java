@@ -17,6 +17,8 @@ import org.usfirst.frc4579.RoboEagles.commands.*;
 import com.RoboEagles4579.filters.AverageFilter;
 import com.RoboEagles4579.math.Vector3d;
 import com.RoboEagles4579.motors.MotorMonitor;
+import com.RoboEagles4579.sensors.MPU_6050_I2C;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -49,6 +51,7 @@ public class Measurement extends Subsystem {
     private final MotorMonitor shooterMotorMonitor = new MotorMonitor(0, RobotMap.miniCIM);
     
     private final Accelerometer robotAccelerometer = RobotMap.robotAccelerometer;
+    private final MPU_6050_I2C MPU_accelerometer = RobotMap.MPU_accelerometer;
     
     private Vector3d accelOffset = new Vector3d(),
     				 accelDrift = new Vector3d(),
@@ -92,9 +95,6 @@ public class Measurement extends Subsystem {
     	
     	
     	initAccelerometer();
-    	initGyro();
-    	
-    	
     	
     	System.out.println("*****	Measurement Initialized");
     	
@@ -113,9 +113,9 @@ public class Measurement extends Subsystem {
     	double timestamp = getTime(),
     			deltaT = timestamp - lastTime,
     			time = timestamp - startTime;
-    	
     	lastTime = timestamp;
     	
+    	System.out.println("X : " + MPU_accelerometer.getAccelX() + "	| Y: " + MPU_accelerometer.getAccelY() + "	| Z: " + MPU_accelerometer.getAccelZ());
     	
     	/*	Accelerometer Filter	*/
     	
@@ -127,8 +127,7 @@ public class Measurement extends Subsystem {
     	
     	/*	Gyro Measurements	*/
     	
-    	robotAngle = robotGyro.getAngle() - (gyroDrift*time) - gyroOffset;
-    	
+  	
     	/*	End Gyro Measurements	*/
     	
     	/*	Accelerometer Measurements	*/
@@ -157,15 +156,6 @@ public class Measurement extends Subsystem {
     	 * 
     	 */
 
-
-    	System.out.println((robotGyro.getAngle() - (gyroDrift*time)) * RadsToDegrees);
-    	//System.out.println((testAngle - (gyroDrift*time)) * RadsToDegrees);
-    	
-    	//System.out.println("Measuring Distance X: " + distance.X + "\"");
-    	//System.out.println("Measuring Acceleration X: " + acceleration.X + "\"");
-    	
-    	//System.out.println("Measuring Distance Y: " + distance.Y + "\"");
-    	//System.out.println("Measuring Acceleration Y: " + acceleration.Y + "\"");
     	
     	/*	End Test Prints	*/
     	
@@ -175,7 +165,7 @@ public class Measurement extends Subsystem {
   
        	/*	Gyro and Accelerometer Drift Calculations	*/
     	    	
-    	double angle_start = robotGyro.getAngle(),
+    	double angle_start = 0,
     			accelX_start = robotAccelerometer.getX(),
     			accelY_start = robotAccelerometer.getY();
     	    	
@@ -183,7 +173,7 @@ public class Measurement extends Subsystem {
     	
     	double accelX_end = robotAccelerometer.getX(),
     			accelY_end = robotAccelerometer.getY(),
-    			angle_end = robotGyro.getAngle();
+    			angle_end = 0;
     	
     	accelDrift.X = (accelX_end - accelX_start) / calibrationTime;
     	accelDrift.Y = (accelY_end - accelY_start) / calibrationTime;
@@ -197,7 +187,7 @@ public class Measurement extends Subsystem {
     	
     	for(int i = 0; i <= iterations; i++) {
     		
-    		gyroOffset += robotGyro.getAngle();
+    		gyroOffset += 0;
     		
     		accelOffset.X += robotAccelerometer.getX();
     		accelOffset.Y += robotAccelerometer.getY();
@@ -221,17 +211,6 @@ public class Measurement extends Subsystem {
     	
     }
     
-    private void initGyro() {
-    	
-    	robotGyro.reset();
-    	robotGyro.initGyro();
-    	robotGyro.calibrate();
-    	robotAngle = 0;
-    	time.reset();
-    	time.start();
-    	
-    	
-    }
     
     public double getCurrent(int port) {
     	return robotPDB.getCurrent(port);

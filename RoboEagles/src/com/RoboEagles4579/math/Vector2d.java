@@ -29,4 +29,18 @@ public class Vector2d {
         Y = 0;
     }
     
+    public Vector2d multiply(double val) {
+    	X *= val;
+    	Y *= val;
+    	return this;
+    }
+
+	public Vector2d divide(double val) {
+		X /= val;
+		Y /= val;
+		return this;
+		
+		
+	}
+    
 }
