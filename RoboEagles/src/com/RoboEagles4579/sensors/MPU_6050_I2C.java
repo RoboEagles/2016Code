@@ -1,22 +1,10 @@
 package com.RoboEagles4579.sensors;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 import com.RoboEagles4579.math.Vector3d;
 import com.RoboEagles4579.math.Vector3i;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SensorBase;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary.tInstances;
-import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary.tResourceType;
-import edu.wpi.first.wpilibj.communication.UsageReporting;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
-import edu.wpi.first.wpilibj.tables.ITable;
 
 public class MPU_6050_I2C {
 	
@@ -78,6 +66,9 @@ public class MPU_6050_I2C {
 	
 	private I2C MPU;
 	
+	private byte[] accelReads = new byte[6],
+					gyroReads = new byte[6];
+	
 	public MPU_6050_I2C(byte deviceAddress, 
 						ACCEL_VALUES accelSensitivity, 
 						GYRO_VALUES gyroSensitivity) {
@@ -108,31 +99,48 @@ public class MPU_6050_I2C {
 	
 	private void init() {
 		
-		byte[] registerConfig = new byte[1];
+		byte[] registerConfig = new byte[1],
+				registerAccelConfig = new byte[1],
+				registerGyroConfig = new byte[1];
 		
-		MPU.read(REGISTER_CONFIG, 1, registerConfig);
+		MPU.read(REGISTER_CONFIG, registerConfig.length, registerConfig);
+		MPU.read(REGISTER_ACCEL_CONFIG, registerAccelConfig.length, registerAccelConfig);
+		MPU.read(REGISTER_GYRO_CONFIG, registerGyroConfig.length, registerGyroConfig);
+		
+		
 		registerConfig[0] = (byte) ((registerConfig[0] & (byte) 248) | (byte) digitalLPFConfig);
+		registerAccelConfig[0] = (byte) ((registerAccelConfig[0] & (byte) 99 | (byte) this.accelSensitivity << 3));
+		registerGyroConfig[0] = (byte) ((registerGyroConfig[0] & (byte) 99 | (byte) this.gyroSensitivity << 3));
 		
 		MPU.write(REGISTER_SAMPLE_RATE, (byte) sampleRateDivider);
 		MPU.write(REGISTER_CONFIG, registerConfig[0]);
-		
-		
+		MPU.write(REGISTER_ACCEL_CONFIG, registerAccelConfig[0]);
+		MPU.write(REGISTER_GYRO_CONFIG, registerGyroConfig[0]);
 		
 		
 	}
 	
 	public void read() {
 		
+		MPU.read(REGISTER_ACCEL, accelReads.length, accelReads);
+		MPU.read(REGISTER_GYRO, gyroReads.length, gyroReads);
 		
+		rawAccelerometer.X = (accelReads[0] << 8) | accelReads[1];
+		rawAccelerometer.Y = (accelReads[2] << 8) | accelReads[3];
+		rawAccelerometer.Z = (accelReads[4] << 8) | accelReads[5];
+		
+		rawGyro.X = (gyroReads[0] << 8) | gyroReads[1];
+		rawGyro.Y = (gyroReads[2] << 8) | gyroReads[3];
+		rawGyro.Z = (gyroReads[4] << 8) | gyroReads[5];
 		
 	}
 	
 	public Vector3d getAccel() {
-		return accelValues.divide(this.accelLSB_Sensitivity);
+		return accelValues.set(rawAccelerometer).divide(this.accelLSB_Sensitivity);
 	}
 	
 	public Vector3d getGyro() {
-		return gyroValues.divide(this.gyroLSB_Sensitivity);
+		return gyroValues.set(rawGyro).divide(this.gyroLSB_Sensitivity);
 	}
 	
 	public double getAccelX() {
