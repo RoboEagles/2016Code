@@ -3,8 +3,7 @@ package com.RoboEagles4579.filters;
 public class AverageFilter {
 	
 	private int arraySize,
-				index,
-				lastIndex;
+				index;
 	
 	private double average,
 					sum;
@@ -14,27 +13,20 @@ public class AverageFilter {
 	public AverageFilter(int arraySize) {
 		this.arraySize = arraySize;
 		array = new double[arraySize];
-		for(int i = 0; i < array.length; i++){
-			array[i] = 0;
-		}
+		reset();
 		sum = 0.;
-		lastIndex = 0;
 		index = 0;
 	}
 	
 	public double filter(double input) {
-		
-		lastIndex = lastIndex - 1 < 0 ? arraySize - 1 : lastIndex - 1;
-		
-		
-		sum -= array[lastIndex];
-		sum += input;
-		
+
+		sum -= array[index];
 		array[index] = input;
+		sum += input;
+
+		index = index + 1 == arraySize ? 0 : index + 1;
 		
-		index = index + 1 >= arraySize ? index = 0 : index + 1;
-		
-		average = sum / arraySize;
+		average = sum / (double) arraySize;
 		
 		return average;
 		
@@ -44,6 +36,8 @@ public class AverageFilter {
 		for(int i = 0; i < array.length; i++) {
 			array[i] = 0;			
 		}
+		index = 0;
+		sum = 0;
 	}
 	
 	public double getAverage() {

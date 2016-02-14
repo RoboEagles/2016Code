@@ -5,6 +5,7 @@ import com.RoboEagles4579.math.Vector3d;
 import com.RoboEagles4579.math.Vector3i;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
 
 public class MPU_6050_I2C {
 	
@@ -12,10 +13,13 @@ public class MPU_6050_I2C {
 	
 	private int accelSensitivity = 0,
 				gyroSensitivity = 0,
-				sampleRateDivider = 19,
+				sampleRateDivider = 18,
 				digitalLPFConfig = 3;
 	
-	private Vector3i rawAccelerometer = new Vector3i(),
+	private double robotAngle = 0.,
+					lastTime = 0.;
+	
+	public Vector3i rawAccelerometer = new Vector3i(),
 					 rawGyro = new Vector3i();
 	
 	private Vector3d accelValues = new Vector3d(),
@@ -82,11 +86,13 @@ public class MPU_6050_I2C {
 		
 		MPU = new I2C(I2C.Port.kOnboard, (int) this.deviceAddress);
 		
+		init();
+		
 	}
 
 	public MPU_6050_I2C(byte deviceAddress) {
 		
-		this(deviceAddress, ACCEL_VALUES.k2g, GYRO_VALUES.k500);
+		this(deviceAddress, ACCEL_VALUES.k4g, GYRO_VALUES.k500);
 		
 		
 	}
@@ -107,7 +113,6 @@ public class MPU_6050_I2C {
 		MPU.read(REGISTER_ACCEL_CONFIG, registerAccelConfig.length, registerAccelConfig);
 		MPU.read(REGISTER_GYRO_CONFIG, registerGyroConfig.length, registerGyroConfig);
 		
-		
 		registerConfig[0] = (byte) ((registerConfig[0] & (byte) 248) | (byte) digitalLPFConfig);
 		registerAccelConfig[0] = (byte) ((registerAccelConfig[0] & (byte) 99 | (byte) this.accelSensitivity << 3));
 		registerGyroConfig[0] = (byte) ((registerGyroConfig[0] & (byte) 99 | (byte) this.gyroSensitivity << 3));
@@ -116,6 +121,8 @@ public class MPU_6050_I2C {
 		MPU.write(REGISTER_CONFIG, registerConfig[0]);
 		MPU.write(REGISTER_ACCEL_CONFIG, registerAccelConfig[0]);
 		MPU.write(REGISTER_GYRO_CONFIG, registerGyroConfig[0]);
+		MPU.write(REGISTER_PWRMGMT_1, (byte) 0x00);
+		MPU.write(REGISTER_PWRMGMT_2, (byte) 0x00);
 		
 		
 	}
@@ -133,8 +140,16 @@ public class MPU_6050_I2C {
 		rawGyro.Y = (gyroReads[2] << 8) | gyroReads[3];
 		rawGyro.Z = (gyroReads[4] << 8) | gyroReads[5];
 		
+		double time = getTime();
+		robotAngle += getGyroX() * (time - lastTime);
+		lastTime = time;
+		
 	}
 	
+	private double getTime() {
+		return Timer.getFPGATimestamp();
+	}
+
 	public Vector3d getAccel() {
 		return accelValues.set(rawAccelerometer).divide(this.accelLSB_Sensitivity);
 	}
@@ -167,5 +182,8 @@ public class MPU_6050_I2C {
 		return getGyro().Z;
 	}
 	
+	public double getRobotAngle() {
+		return robotAngle; // Across the Z Axis
+	}
 
 }

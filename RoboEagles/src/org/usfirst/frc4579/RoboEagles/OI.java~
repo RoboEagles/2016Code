@@ -79,6 +79,7 @@ public class OI {
 
 
         // SmartDashboard Buttons
+        SmartDashboard.putData("Cmd_MoveDistance: default", new Cmd_MoveDistance(0));
         SmartDashboard.putData("Cmd_Load", new Cmd_Load());
         SmartDashboard.putData("Cmd_Default_Drive", new Cmd_Default_Drive());
         SmartDashboard.putData("Cmd_Default_Measure", new Cmd_Default_Measure());
