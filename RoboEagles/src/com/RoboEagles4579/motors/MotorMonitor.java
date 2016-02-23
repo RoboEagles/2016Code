@@ -11,6 +11,7 @@ public class MotorMonitor {
 	public MotorMonitor(int motorPDBChannel, MotorSpecs motor) {
 		this.robotPDB = new PowerDistributionPanel();
 		this.motorPDBChannel = motorPDBChannel;
+		this.motor = motor;
 	}
 	
 	
@@ -20,10 +21,13 @@ public class MotorMonitor {
 	
 	public double getSpeed() {
 		
-		//double speed = -1*(motor.getMaxSpeed()*(this.getCurrent()-motor.getMinCurrent()))
-			//			/(motor.getStallCurrent()-motor.getMinCurrent()) + motor.getMaxSpeed();
+		double maxSpeed = motor.getMaxSpeed();
+		double stallCurrent = motor.getStallCurrent();
+		double minCurrent = motor.getMinCurrent();
+		double current = getCurrent();
+				
+		return -1*(maxSpeed / (stallCurrent - minCurrent)) * current + ((maxSpeed) / (stallCurrent - minCurrent) * minCurrent); 
 		
-		return 0;
 	}
 	
 

@@ -35,6 +35,7 @@ public class MPU_6050_I2C {
 							 REGISTER_CONFIG = 0x1A,
 							 REGISTER_GYRO_CONFIG = 0x1B,
 							 REGISTER_ACCEL_CONFIG = 0x1C,
+							 REGISTER_TEMP = 0x41,
 							 REGISTER_SAMPLE_RATE = 0x19;
 	
 	private static final double[][] ACCEL_SENSITIVITY = {
@@ -127,7 +128,7 @@ public class MPU_6050_I2C {
 		
 	}
 	
-	public void read() {
+	public MPU_6050_I2C read() {
 		
 		MPU.read(REGISTER_ACCEL, accelReads.length, accelReads);
 		MPU.read(REGISTER_GYRO, gyroReads.length, gyroReads);
@@ -141,8 +142,10 @@ public class MPU_6050_I2C {
 		rawGyro.Z = (gyroReads[4] << 8) | gyroReads[5];
 		
 		double time = getTime();
-		robotAngle += getGyroX() * (time - lastTime);
+		robotAngle += getGyroZ() * (time - lastTime);
 		lastTime = time;
+		
+		return this;
 		
 	}
 	
@@ -184,6 +187,17 @@ public class MPU_6050_I2C {
 	
 	public double getRobotAngle() {
 		return robotAngle; // Across the Z Axis
+	}
+	
+	public double getTemp() { // degrees Centigrade
+		
+		byte[] tempBuff = new byte[2];
+		MPU.read(REGISTER_TEMP, tempBuff.length, tempBuff);
+		
+		int temp = (tempBuff[0] << 8) | tempBuff[1];
+		
+		return (temp/340) + 36.53;
+		
 	}
 
 }

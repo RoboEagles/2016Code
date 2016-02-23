@@ -51,6 +51,10 @@ public class Cmd_Default_Lift extends Command {
     	
     	update();
     	
+    	
+    	set(setpoint);
+    	
+    	/*
     	if(Robot.lifter.isLimited()) {
     		if(Robot.lifter.getBottomLimited()) {
     			if(setpoint > lastInput) {
@@ -65,7 +69,7 @@ public class Cmd_Default_Lift extends Command {
     		}
     	} else {
     		set(setpoint);
-    	}
+    	}*/
     	
     }
 

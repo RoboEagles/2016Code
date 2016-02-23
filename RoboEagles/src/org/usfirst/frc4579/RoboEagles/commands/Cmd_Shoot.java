@@ -3,13 +3,17 @@ package org.usfirst.frc4579.RoboEagles.commands;
 import org.usfirst.frc4579.RoboEagles.Robot;
 import org.usfirst.frc4579.RoboEagles.subsystems.Loader;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class Cmd_Shoot extends Command {
-	boolean shooting = false;
+
+	static double wheelSetPower = 1.0,
+							loaderMotorPower = -0.5;
+	
     public Cmd_Shoot() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -19,27 +23,38 @@ public class Cmd_Shoot extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.shoot(.5);
+    	Robot.shooter.shoot(wheelSetPower);
+    	setTimeout(2.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.shoot(.5);
-    	if(Robot.measurement.getShooterSpeed() >= 500.0)  {
-    		Robot.loader.set(.5);
+    	Robot.shooter.shoot(wheelSetPower);
+    	/*if(Robot.measurement.getShooterSpeed() >= 500.0 /* RPM ( w/4" wheels, ~9ft/s) )  {
+    		Robot.loader.set(loaderMotorPower);
     		if(!shooting) setTimeout(2.0);
     		shooting = true;
-    	}
+    	}*/
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (!Robot.loader.isLoaded() || isTimedOut());
+    	if(isTimedOut()) {
+    		
+    		Robot.loader.set(loaderMotorPower);
+    		Timer.delay(-0.5);
+
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	
+    	
     	Robot.loader.stop();
     	Robot.shooter.shoot(0.0);
     }
