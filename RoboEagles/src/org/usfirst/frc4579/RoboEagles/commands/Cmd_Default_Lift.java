@@ -51,25 +51,20 @@ public class Cmd_Default_Lift extends Command {
     	
     	update();
     	
+
+    	
+    	
+    	/*if(setpoint < 0.4) {
+    		setpoint = 0.4;
+    	}
+    	
+    	if(setpoint > 4.5) {
+    		setpoint = 4.5;
+    	} */  		
+    	
     	
     	set(setpoint);
     	
-    	/*
-    	if(Robot.lifter.isLimited()) {
-    		if(Robot.lifter.getBottomLimited()) {
-    			if(setpoint > lastInput) {
-    				set(setpoint);
-    			}
-    		} else if(Robot.lifter.getTopLimited()) {
-    			if(setpoint < lastInput) {
-    				set(setpoint);
-    			}
-    		} else {
-    			System.err.println("LIMIT TRUE, BUT NOT LIMITED CMD_DEFAULT_LIFT");
-    		}
-    	} else {
-    		set(setpoint);
-    	}*/
     	
     }
 
@@ -92,11 +87,20 @@ public class Cmd_Default_Lift extends Command {
     }
     
     private void update() {
-    	setpoint = Robot.oi.getDriveStick().getThrottle()*260;
+    	setpoint = -0.941 + (0.531 * ((1. - (Robot.oi.getDriveStick().getThrottle() / 2.)) - 0.5));
+    	
+    	if(setpoint >= 0.47) {
+    		
+    		setpoint = 0.47;
+    		
+    	}
     }
     
     private void set(double setpoint) {
     	Robot.lifter.setSetpoint(setpoint);
+    	
+    
+    	
     	lastInput = setpoint;
     }
     

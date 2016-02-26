@@ -149,7 +149,6 @@ public class Measurement extends Subsystem {
     	
     	//System.out.println(robotAngle + " Offset: " + gyroOffset + " Drift: " + gyroDrift);
 
-    	System.out.println(robotAngle);
     	/*	End Test Prints	*/
     	
     }

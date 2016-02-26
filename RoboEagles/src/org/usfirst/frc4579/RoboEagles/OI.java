@@ -125,7 +125,7 @@ public class OI {
         SmartDashboard.putData("Cmd_ExtendLiftArm", new Cmd_ExtendLiftArm());
         SmartDashboard.putData("Cmd_RetractLiftArm", new Cmd_RetractLiftArm());
         SmartDashboard.putData("Cmd_PrepareLift", new Cmd_PrepareLift());
-        SmartDashboard.putData("CmdGrp_Shoot", new CmdGrp_Shoot());
+        SmartDashboard.putData("Cmd_Shoot", new Cmd_Shoot());
         SmartDashboard.putData("AutoGrp_MoveToDefense", new AutoGrp_MoveToDefense());
         SmartDashboard.putData("Cmd_Eject", new Cmd_Eject());
 

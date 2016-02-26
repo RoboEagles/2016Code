@@ -78,7 +78,7 @@ public class Cmd_Default_Drive extends Command {
     
     private void update() {
     	
-    	X = Robot.oi.getDriveStick().getX();
+    	X = Robot.oi.getDriveStick().getY();
     	
     	if(zControl) {
     		
@@ -86,7 +86,7 @@ public class Cmd_Default_Drive extends Command {
     		
     	} else {
     		
-    		Y = Robot.oi.getDriveStick().getY();
+    		Y = Robot.oi.getDriveStick().getX();
     		
     	}
     	

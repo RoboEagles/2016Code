@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 
@@ -47,7 +48,7 @@ public class RobotMap {
     public static AnalogInput measurementrobotUltrasonic;
     public static AnalogPotentiometer lifterlifterPotentiometer;
     public static SpeedController lifterlifterMotor;
-    public static DoubleSolenoid lifterlifterArmExtension;
+    public static Solenoid lifterlifterArmExtension;
     public static DigitalInput liftertopLimit;
     public static DigitalInput lifterbottomLimit;
 
@@ -71,7 +72,7 @@ public class RobotMap {
         drivetrainrobotDrive.setSensitivity(0.5);
         drivetrainrobotDrive.setMaxOutput(1.0);
 
-        drivetrainrobotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        drivetrainrobotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         loaderloadMotor = new Talon(4);
         LiveWindow.addActuator("Loader", "loadMotor", (Talon) loaderloadMotor);
         
@@ -84,16 +85,16 @@ public class RobotMap {
         measurementrobotPDB = new PowerDistributionPanel(0);
         LiveWindow.addSensor("Measurement", "robotPDB", measurementrobotPDB);
         
-        measurementrobotUltrasonic = new AnalogInput(2);
+        measurementrobotUltrasonic = new AnalogInput(1);
         LiveWindow.addSensor("Measurement", "robotUltrasonic", measurementrobotUltrasonic);
         
-        lifterlifterPotentiometer = new AnalogPotentiometer(1, 260.0, 0.0);
+        lifterlifterPotentiometer = new AnalogPotentiometer(0, -1.0, 0.0);
         LiveWindow.addSensor("Lifter", "lifterPotentiometer", lifterlifterPotentiometer);
         
         lifterlifterMotor = new Talon(3);
         LiveWindow.addActuator("Lifter", "lifterMotor", (Talon) lifterlifterMotor);
         
-        lifterlifterArmExtension = new DoubleSolenoid(0, 0, 1);
+        lifterlifterArmExtension = new Solenoid(0, 4);
         LiveWindow.addActuator("Lifter", "lifterArmExtension", lifterlifterArmExtension);
         
         liftertopLimit = new DigitalInput(3);

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Cmd_Shoot extends Command {
 
 	static double wheelSetPower = 1.0,
-							loaderMotorPower = -0.5;
+							loaderMotorPower = -0.75;
 	
     public Cmd_Shoot() {
         // Use requires() here to declare subsystem dependencies
@@ -42,12 +42,16 @@ public class Cmd_Shoot extends Command {
     protected boolean isFinished() {
     	if(isTimedOut()) {
     		
+    		Robot.shooter.shoot(wheelSetPower);
     		Robot.loader.set(loaderMotorPower);
-    		Timer.delay(-0.5);
+    		Timer.delay(0.5);
 
     		return true;
+    		
     	} else {
+    		
     		return false;
+    		
     	}
     }
 
